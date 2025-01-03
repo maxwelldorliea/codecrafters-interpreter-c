@@ -19,6 +19,7 @@ enum TokenType {
   SEMICOLON,
   EQUAL,
   EQUAL_EQUAL,
+  BANG,
 };
 
 typedef struct Token_s {
@@ -94,6 +95,14 @@ int main(int argc, char *argv[]) {
                 i++;
               } else {
                 printf("EQUAL %c null\n", file_contents[i]);
+              }
+              break;
+            case '!':
+              if (file_contents[i+1] == '=') {
+                printf("BANG_EQUAL %c= null\n", file_contents[i + 1]);
+                i++;
+              } else {
+                printf("BANG %c null\n", file_contents[i]);
               }
               break;
             default:
