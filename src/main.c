@@ -49,9 +49,13 @@ int main(int argc, char *argv[]) {
         //     fprintf(stderr, "Scanner not implemented\n");
         //     exit(1);
         // }
-        int i = 0;
+        int i = 0, line = 1;
+        int hasError = 0;
         while (i < strlen(file_contents)) {
           switch (file_contents[i]) {
+            case '\n':
+              line++;
+              break;
             case ')':
               printf("RIGHT_PAREN %c null\n", file_contents[i]);
               break;
@@ -82,11 +86,17 @@ int main(int argc, char *argv[]) {
             case ';':
               printf("SEMICOLON %c null\n", file_contents[i]);
               break;
+            default:
+              fprintf(stderr, "[line %d] Error: Unexpected character: %c\n", line, file_contents[i]);
+              hasError = 1;
+              break;
+
           }
           i++;
         }
         printf("EOF  null\n"); // Placeholder, remove this line when implementing the scanner
         free(file_contents);
+        if (hasError) return 65;
     } else {
         fprintf(stderr, "Unknown command: %s\n", command);
         return 1;
