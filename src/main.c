@@ -8,7 +8,9 @@ enum TokenType {
   STRING,
   EOFL,
   LEFT_PAREN,
-  RIGHT_PAREN
+  RIGHT_PAREN,
+  RIGHT_BRACE,
+  LEFT_BRACE
 };
 
 typedef struct Token_s {
@@ -49,6 +51,12 @@ int main(int argc, char *argv[]) {
               break;
             case '(':
               printf("LEFT_PAREN %c null\n", file_contents[i]);
+              break;
+            case '{':
+              printf("LEFT_BRACE %c null\n", file_contents[i]);
+              break;
+            case '}':
+              printf("RIGHT_BRACE %c null\n", file_contents[i]);
               break;
           }
           i++;
