@@ -67,6 +67,9 @@ int main(int argc, char *argv[]) {
             case '-':
               printf("MINUS %c null\n", file_contents[i]);
               break;
+            case '+':
+              printf("PLUS %c null\n", file_contents[i]);
+              break;
             case '*':
               printf("STAR %c null\n", file_contents[i]);
               break;
