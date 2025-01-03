@@ -10,7 +10,13 @@ enum TokenType {
   LEFT_PAREN,
   RIGHT_PAREN,
   RIGHT_BRACE,
-  LEFT_BRACE
+  LEFT_BRACE,
+  STAR,
+  DOT,
+  COMMA,
+  PLUS,
+  MINUS,
+  SEMICOLON,
 };
 
 typedef struct Token_s {
@@ -57,6 +63,21 @@ int main(int argc, char *argv[]) {
               break;
             case '}':
               printf("RIGHT_BRACE %c null\n", file_contents[i]);
+              break;
+            case '-':
+              printf("MINUS %c null\n", file_contents[i]);
+              break;
+            case '*':
+              printf("STAR %c null\n", file_contents[i]);
+              break;
+            case '.':
+              printf("DOT %c null\n", file_contents[i]);
+              break;
+            case ',':
+              printf("COMMA %c null\n", file_contents[i]);
+              break;
+            case ';':
+              printf("SEMICOLON %c null\n", file_contents[i]);
               break;
           }
           i++;
