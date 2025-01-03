@@ -99,7 +99,7 @@ int main(int argc, char *argv[]) {
               break;
             case '!':
               if (file_contents[i+1] == '=') {
-                printf("BANG_EQUAL %c= null\n", file_contents[i + 1]);
+                printf("BANG_EQUAL %c= null\n", file_contents[i]);
                 i++;
               } else {
                 printf("BANG %c null\n", file_contents[i]);
