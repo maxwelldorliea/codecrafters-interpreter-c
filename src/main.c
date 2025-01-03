@@ -17,6 +17,8 @@ enum TokenType {
   PLUS,
   MINUS,
   SEMICOLON,
+  EQUAL,
+  EQUAL_EQUAL,
 };
 
 typedef struct Token_s {
@@ -85,6 +87,14 @@ int main(int argc, char *argv[]) {
               break;
             case ';':
               printf("SEMICOLON %c null\n", file_contents[i]);
+              break;
+            case '=':
+              if (file_contents[i+1] == '=') {
+                printf("EQUAL_EQUAL =%c null\n", file_contents[i + 1]);
+                i++;
+              } else {
+                printf("EQUAL %c null\n", file_contents[i]);
+              }
               break;
             default:
               fprintf(stderr, "[line %d] Error: Unexpected character: %c\n", line, file_contents[i]);
