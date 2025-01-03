@@ -25,6 +25,8 @@ enum TokenType {
   LESS_EQUAL,
   GREATER,
   GREATER_EQUAL,
+  COMMENT,
+  SLASH,
 };
 
 typedef struct Token_s {
@@ -59,7 +61,16 @@ int main(int argc, char *argv[]) {
         // }
         int i = 0, line = 1;
         int hasError = 0;
+        int isComment = 0;
         while (i < strlen(file_contents)) {
+          if (isComment) {
+            if (file_contents[i] == '\n') {
+              isComment = 0;
+              line++;
+            }
+            i++;
+            continue;
+          }
           switch (file_contents[i]) {
             case '\n':
               line++;
@@ -124,6 +135,14 @@ int main(int argc, char *argv[]) {
                 i++;
               } else {
                 printf("LESS %c null\n", file_contents[i]);
+              }
+              break;
+            case '/':
+              if (file_contents[i+1] == '/') {
+                isComment = 1;
+                i++;
+              } else {
+                printf("SLASH %c null\n", file_contents[i]);
               }
               break;
             default:
