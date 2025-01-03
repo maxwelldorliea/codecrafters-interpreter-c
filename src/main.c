@@ -71,6 +71,10 @@ int main(int argc, char *argv[]) {
             i++;
             continue;
           }
+          if (file_contents[i] == '\t' || file_contents[i] == ' ') {
+            i++;
+            continue;
+          }
           switch (file_contents[i]) {
             case '\n':
               line++;
