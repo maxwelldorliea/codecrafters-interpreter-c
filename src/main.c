@@ -2,6 +2,21 @@
 #include <stdlib.h>
 #include <string.h>
 
+enum TokenType {
+  VAR,
+  IDENTIFIER,
+  STRING,
+  EOFL,
+  LEFT_PAREN,
+  RIGHT_PAREN
+};
+
+typedef struct Token_s {
+  enum TokenType type;
+  char* lexeme;
+  void* literal;
+} Token;
+
 char *read_file_contents(const char *filename);
 
 int main(int argc, char *argv[]) {
@@ -22,12 +37,23 @@ int main(int argc, char *argv[]) {
 
         char *file_contents = read_file_contents(argv[2]);
 
-        if (strlen(file_contents) > 0) {
-            fprintf(stderr, "Scanner not implemented\n");
-            exit(1);
+        // if (strlen(file_contents) > 0) {
+        //     fprintf(stderr, "Scanner not implemented\n");
+        //     exit(1);
+        // }
+        int i = 0;
+        while (i < strlen(file_contents)) {
+          switch (file_contents[i]) {
+            case ')':
+              printf("RIGHT_PAREN %c null\n", file_contents[i]);
+              break;
+            case '(':
+              printf("LEFT_PAREN %c null\n", file_contents[i]);
+              break;
+          }
+          i++;
         }
         printf("EOF  null\n"); // Placeholder, remove this line when implementing the scanner
-
         free(file_contents);
     } else {
         fprintf(stderr, "Unknown command: %s\n", command);
