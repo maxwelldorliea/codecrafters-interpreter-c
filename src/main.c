@@ -69,7 +69,7 @@ int scanNum(char *s, int start, int end, int line, int* hasError) {
   while (start < end) {
     char c = s[start];
     putc(c, stdout);
-    if (c == ' ' || c == '\n') {
+    if (c == ' ' || c == '\n' || start == end - 1) {
       str[i] = '\0';
       if (!deci) deci = 1;
       printf("NUMBER %s %.*f\n", str, deci, strtod(str, &derr));
