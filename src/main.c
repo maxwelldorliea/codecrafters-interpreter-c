@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -79,10 +80,16 @@ int scanNum(char *s, int start, int end, int line, int* hasError) {
     if (hasDeci && c == '0') dAllZero++;
     else dAllZero = 0;
     if (c == '.') hasDeci = 1;
-    if ((c >= '0' && c <= '9') || (c == '.' && (str[0] >= '0' && str[0] <= '9'))) {
+    if (isdigit(c) || (c == '.' && isdigit(s[0]))) {
       str[i++] = c;
     } else {
-      break;
+      if (i) {
+        str[i] = '\0';
+        if (!deci) deci = 1;
+        if (dAllZero) deci -= dAllZero - 1;
+        printf("NUMBER %s %.*f\n", str, deci, strtod(str, &derr));
+        return i - 1;
+      }
     }
     start++;
   }
