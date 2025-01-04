@@ -64,17 +64,20 @@ int scanStr(char *s, int start, int end, int line, int* hasError) {
 int scanNum(char *s, int start, int end, int line, int* hasError) {
   char str[100];
   char *derr;
-  int i = 0, found = 0, deci = 0, hasDeci = 0;
+  int i = 0, found = 0, deci = 0, hasDeci = 0, dAllZero = 0;
   while (start <= end) {
     char c = s[start];
     if (c == ' ' || c == '\n' || start == end) {
       str[i] = '\0';
       if (!deci) deci = 1;
+      if (dAllZero) deci -= dAllZero - 1;
       printf("NUMBER %s %.*f\n", str, deci, strtod(str, &derr));
       found = 1;
       break;
     }
     if (hasDeci) deci++;
+    if (hasDeci && c == '0') dAllZero++;
+    else dAllZero = 0;
     if (c == '.') hasDeci = 1;
     if ((c >= '0' && c <= '9') || (c == '.' && (str[0] >= '0' && str[0] <= '9'))) {
       str[i++] = c;
