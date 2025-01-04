@@ -79,6 +79,10 @@ int scanNum(char *s, int start, int end, int line, int* hasError) {
     if ((c >= '0' && c <= '9') || (c == '.' && (str[0] >= '0' && str[0] <= '9'))) {
       str[i++] = c;
     } else {
+      str[i] = '\0';
+      if (!deci) deci = 1;
+      printf("NUMBER %s %.*f\n", str, deci, strtod(str, &derr));
+      found = 1;
       break;
     }
     start++;
