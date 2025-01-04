@@ -61,6 +61,36 @@ int scanStr(char *s, int start, int end, int line, int* hasError) {
   return i;
 }
 
+int scanNum(char *s, int start, int end, int line, int* hasError) {
+  char str[100];
+  char *derr;
+  int i = 0, found = 0, deci = 0, hasDeci = 0;
+  while (start < end) {
+    char c = s[start];
+    if (c == ' ' || c == '\n') {
+      str[i] = '\0';
+      if (!deci) deci = 1;
+      printf("NUMBER %s %.*f\n", str, deci, strtod(str, &derr));
+      found = 1;
+      break;
+    }
+    if (hasDeci) deci++;
+    if (c == '.') hasDeci = 1;
+    if ((c >= '0' && c <= '9') || (c == '.' && (str[0] >= '0' && str[0] <= '9'))) {
+      str[i++] = c;
+    } else {
+      break;
+    }
+    start++;
+  }
+  if (!found) {
+    fprintf(stderr, "[line %d] Error: Invalid number.\n", line);
+    *hasError = 1;
+    return i;
+  }
+  return i;
+}
+
 int main(int argc, char *argv[]) {
     // Disable output buffering
     setbuf(stdout, NULL);
@@ -175,6 +205,10 @@ int main(int argc, char *argv[]) {
               break;
             case '"':
               i += scanStr(file_contents, i + 1, strlen(file_contents), line, &hasError);
+              break;
+            case '0': case '1': case '2': case '3': case '4':
+            case '5': case '6': case '7': case '8': case '9':
+              i += scanNum(file_contents, i, strlen(file_contents), line, &hasError);
               break;
             default:
               fprintf(stderr, "[line %d] Error: Unexpected character: %c\n", line, file_contents[i]);
