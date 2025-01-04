@@ -83,11 +83,6 @@ int scanNum(char *s, int start, int end, int line, int* hasError) {
     }
     start++;
   }
-  if (!found) {
-    fprintf(stderr, "[line %d] Error: Invalid number.\n", line);
-    *hasError = 1;
-    return i;
-  }
   return i;
 }
 
