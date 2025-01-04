@@ -37,6 +37,30 @@ typedef struct Token_s {
 
 char *read_file_contents(const char *filename);
 
+int scanStr(char *s, int start, int end, int line, int* hasError) {
+  char str[100];
+  int i = 0, found = 0;
+  while (start < end) {
+    char c = s[start];
+    if (c == '\n') break;
+    if (c == '"') {
+      str[i] = '\0';
+      printf("STRING \"%s\" %s\n", str, str);
+      found = 1;
+      break;
+    }
+    str[i++] = c;
+    start++;
+  }
+  i++;
+  if (!found) {
+    fprintf(stderr, "[line %d] Error: Unterminated string.\n", line);
+    *hasError = 1;
+    return i;
+  }
+  return i;
+}
+
 int main(int argc, char *argv[]) {
     // Disable output buffering
     setbuf(stdout, NULL);
@@ -148,6 +172,9 @@ int main(int argc, char *argv[]) {
               } else {
                 printf("SLASH %c null\n", file_contents[i]);
               }
+              break;
+            case '"':
+              i += scanStr(file_contents, i + 1, strlen(file_contents), line, &hasError);
               break;
             default:
               fprintf(stderr, "[line %d] Error: Unexpected character: %c\n", line, file_contents[i]);
