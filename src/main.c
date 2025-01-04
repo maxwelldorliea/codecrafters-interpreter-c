@@ -40,7 +40,7 @@ char *read_file_contents(const char *filename);
 int scanStr(char *s, int start, int end, int line, int* hasError) {
   char str[100];
   int i = 0, found = 0;
-  while (start < end) {
+  while (start <= end) {
     char c = s[start];
     if (c == '\n') break;
     if (c == '"') {
@@ -66,7 +66,7 @@ int scanNum(char *s, int start, int end, int line, int* hasError) {
   char *derr;
   int i = 0, found = 0, deci = 0, hasDeci = 0;
   printf("I am here max: w%se\n", s);
-  while (start < end) {
+  while (start <= end) {
     char c = s[start];
     putc(c, stdout);
     if (c == ' ' || c == '\n' || start + 1 == end) {
