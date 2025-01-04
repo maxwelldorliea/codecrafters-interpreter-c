@@ -65,7 +65,7 @@ int scanNum(char *s, int start, int end, int line, int* hasError) {
   char str[100];
   char *derr;
   int i = 0, found = 0, deci = 0, hasDeci = 0;
-  printf("I am here max: %s\n", s);
+  printf("I am here max: w%se\n", s);
   while (start < end) {
     char c = s[start];
     putc(c, stdout);
