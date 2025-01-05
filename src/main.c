@@ -4,7 +4,6 @@
 #include <string.h>
 
 enum TokenType {
-  VAR,
   IDENTIFIER,
   STRING,
   EOFL,
@@ -28,13 +27,73 @@ enum TokenType {
   GREATER_EQUAL,
   COMMENT,
   SLASH,
+  AND,
+  IF,
+  NIL,
+  CLASS,
+  ELSE,
+  FALSE,
+  FOR,
+  FUN,
+  OR,
+  PRINT,
+  RETURN,
+  SUPER,
+  THIS,
+  TRUE,
+  VAR,
+  WHILE
 };
+
 
 typedef struct Token_s {
   enum TokenType type;
   char* lexeme;
   void* literal;
 } Token;
+
+char* strToUpper(char *s) {
+    char *str = strdup(s);
+    for (char *p = str; *p; ++p) {
+        *p = toupper((unsigned char)*p);
+    }
+  return str;
+}
+
+
+int isReserved(char *s) {
+// and, class, else, false, for, fun, if, nil, or, print, return, super, this, true, var, while
+  Token reserves[] = {
+    { AND, "and", "null"},
+    { CLASS, "class", "null"},
+    { ELSE, "else", "null"},
+    { IF, "if", "null"},
+    { FALSE, "false", "null"},
+    { FOR, "for", "null"},
+    { FUN, "fun", "null"},
+    { NIL, "nil", "null"},
+    { OR, "or", "null"},
+    { PRINT, "print", "null"},
+    { RETURN, "return", "null"},
+    { SUPER, "super", "null"},
+    { THIS, "this", "null"},
+    { TRUE, "true", "null"},
+    { VAR, "var", "null"},
+    { WHILE, "while", "null"},
+  };
+  int resLen = 16;
+
+  for (int i = 0; i < resLen; i++) {
+    if (strcmp(reserves[i].lexeme, s) == 0) {
+      char *token = strToUpper(reserves[i].lexeme);
+      printf("%s %s null\n", token, reserves[i].lexeme);
+      free(token);
+      return 1;
+    }
+  }
+
+  return 0;
+}
 
 char *read_file_contents(const char *filename);
 
@@ -104,7 +163,7 @@ int scanIdentifier(char *s, int start, int end) {
     char c = s[start];
     if (c == ' ' || c == '\n' || start == end) {
       str[i] = '\0';
-      printf("IDENTIFIER %s null\n", str);
+      if(!isReserved(str)) printf("IDENTIFIER %s null\n", str);
       break;
     }
     if (isalnum(c) || c == '_') str[i++] = c;
