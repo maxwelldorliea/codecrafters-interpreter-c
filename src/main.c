@@ -80,7 +80,7 @@ int scanNum(char *s, int start, int end, int line, int* hasError) {
     if (hasDeci && c == '0') dAllZero++;
     else dAllZero = 0;
     if (c == '.') hasDeci = 1;
-    if (isdigit(c) || (c == '.' && isdigit(s[0]))) {
+    if (isdigit(c) || (c == '.' && isdigit(str[0]))) {
       str[i++] = c;
     } else {
       if (i) {
