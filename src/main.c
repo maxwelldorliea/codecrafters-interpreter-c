@@ -107,7 +107,7 @@ int scanIdentifier(char *s, int start, int end) {
       printf("IDENTIFIER %s null\n", str);
       break;
     }
-    str[i++] = c;
+    if (isalnum(c) || c == '_') str[i++] = c;
     start++;
   }
   return i;
