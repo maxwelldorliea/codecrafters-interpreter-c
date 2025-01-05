@@ -96,6 +96,23 @@ int scanNum(char *s, int start, int end, int line, int* hasError) {
   return i;
 }
 
+int scanIdentifier(char *s, int start, int end) {
+  char str[100];
+  int i = 0;
+
+  while (start <= end) {
+    char c = s[start];
+    if (c == ' ' || c == '\n' || start == end) {
+      str[i] = '\0';
+      printf("IDENTIFIER %s null\n", str);
+      break;
+    }
+    str[i++] = c;
+    start++;
+  }
+  return i;
+}
+
 int main(int argc, char *argv[]) {
     // Disable output buffering
     setbuf(stdout, NULL);
@@ -132,6 +149,10 @@ int main(int argc, char *argv[]) {
           }
           if (file_contents[i] == '\t' || file_contents[i] == ' ') {
             i++;
+            continue;
+          }
+          if (isalpha(file_contents[i]) || file_contents[i] == '_') {
+            i += scanIdentifier(file_contents, i, strlen(file_contents));
             continue;
           }
           switch (file_contents[i]) {
