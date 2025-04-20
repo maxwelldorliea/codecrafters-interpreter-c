@@ -185,15 +185,10 @@ int main(int argc, char *argv[]) {
     const char *command = argv[1];
 
     if (strcmp(command, "tokenize") == 0) {
-        // You can use print statements as follows for debugging, they'll be visible when running tests.
         fprintf(stderr, "Logs from your program will appear here!\n");
 
         char *file_contents = read_file_contents(argv[2]);
 
-        // if (strlen(file_contents) > 0) {
-        //     fprintf(stderr, "Scanner not implemented\n");
-        //     exit(1);
-        // }
         int i = 0, line = 1;
         int hasError = 0;
         int isComment = 0;
