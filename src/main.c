@@ -185,8 +185,6 @@ int main(int argc, char *argv[]) {
     const char *command = argv[1];
 
     if (strcmp(command, "tokenize") == 0) {
-        fprintf(stderr, "Logs from your program will appear here!\n");
-
         char *file_contents = read_file_contents(argv[2]);
 
         int i = 0, line = 1;
@@ -298,7 +296,7 @@ int main(int argc, char *argv[]) {
           }
           i++;
         }
-        printf("EOF  null\n"); // Placeholder, remove this line when implementing the scanner
+        printf("EOF  null\n");
         free(file_contents);
         if (hasError) return 65;
     } else {
